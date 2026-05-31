@@ -1,0 +1,31 @@
+name: Reproduce shallow reference bug
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up GHC and cabal
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: "9.8.2"
+          cabal-version: "3.14.1.0"
+
+      - name: Run reproducer
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if cabal build all -v 2>&1 | tee build.log; then
+            echo "Expected cabal build to fail, but it succeeded."
+            exit 1
+          fi
+
+          grep -F "reference repository" build.log
+          grep -F "is shallow" build.log

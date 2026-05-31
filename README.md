@@ -21,6 +21,12 @@ Cabal should first create a shallow clone for `pkg-a`, then try to reuse that ch
 fatal: reference repository '.../dist-newstyle/src/cabal-srp-shallow-reference-reproducer-...' is shallow
 ```
 
+## GitHub Actions
+
+This repository also includes a GitHub Actions workflow that runs the reproducer on `ubuntu-latest`.
+
+The workflow intentionally expects `cabal build all -v` to fail with the shallow-reference error. It treats that exact failure as success, so the workflow demonstrates the regression without requiring manual log inspection.
+
 ## Repository layout
 
 - `pkg-a/` is present in the first tagged commit.
