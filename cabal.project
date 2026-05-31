@@ -1,0 +1,13 @@
+packages: dummy-app
+
+source-repository-package
+  type: git
+  location: https://github.com/ulysses4ever/cabal-srp-shallow-reference-reproducer.git
+  subdir: pkg-a
+  tag: 0a944ae6a6fbd7f317487bbe584ee06bc9e51758
+
+source-repository-package
+  type: git
+  location: https://github.com/ulysses4ever/cabal-srp-shallow-reference-reproducer.git
+  subdir: pkg-b
+  tag: bb26dbf39315493e974443ecdeaf8598c4ca7ac9
