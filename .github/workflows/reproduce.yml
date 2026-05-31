@@ -7,9 +7,11 @@ on:
 jobs:
   reproduce:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up GHC and cabal
         uses: haskell-actions/setup@v2
@@ -17,10 +19,15 @@ jobs:
           ghc-version: "9.8.2"
           cabal-version: "3.14.1.0"
 
-      - name: Run reproducer
+      - name: Run reproducer from a non-git copy
         shell: bash
         run: |
           set -euo pipefail
+
+          workdir=$(mktemp -d)
+          cp -a . "$workdir/repro"
+          rm -rf "$workdir/repro/.git"
+          cd "$workdir/repro"
 
           if cabal build all -v 2>&1 | tee build.log; then
             echo "Expected cabal build to fail, but it succeeded."
