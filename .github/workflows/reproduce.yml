@@ -17,18 +17,8 @@ jobs:
         uses: haskell-actions/setup@v2
         with:
           ghc-version: "9.8.2"
-
-      - name: Install reproducing cabal version
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          if ! ghcup list -t cabal | grep -Fq '3.16.0.0'; then
-            ghcup install cabal 3.16.0.0
-          fi
-
-          ghcup set cabal 3.16.0.0
-          cabal --version
+          cabal-version: "3.16.1.0"
+          cabal-update: false
 
       - name: Run reproducer from a non-git copy
         shell: bash
