@@ -18,6 +18,7 @@ jobs:
         with:
           ghc-version: "9.8.2"
           cabal-version: "3.16.1.0"
+          cabal-update: false
 
       - name: Run reproducer from a non-git copy
         shell: bash
